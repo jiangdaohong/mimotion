@@ -5,20 +5,21 @@ on:
   #  branches: [ main ]
   #pull_request:
   #  branches: [ main ]
+  workflow_dispatch:
   schedule:
-    - cron: '7 0,2,5,7,9,11,16 * * *'
+    - cron: 1 7 * * *
   watch:
     types: started
-  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
       - name: Checkout codes
         uses: actions/checkout@v2
+        
       - name: Update system and install zsh
         run: |
           sudo -E apt-get -qq update
@@ -46,3 +47,14 @@ jobs:
           open_get_weather='${{ secrets.OPEN_GET_WEATHER }}'
           area='${{ secrets.AREA }}'
           python3 main.py ${user} ${passwd} ${skey} ${sckey} ${position} ${corpid} ${corpsecret} ${agentid} ${touser} ${toparty} ${totag} ${open_get_weather} ${area}
+
+      - name: 重置刷新时间
+        run: |
+          zsh random_cron.sh
+          git_pwd='${{ secrets.GIT_PWD }}'
+          git config --global user.name "xunichanghuan"
+          git config --global user.email "zhpjake@vip.qq.com"
+          git add .
+          git commit -m '重置下次刷新时间'
+          git remote set-url origin http://xunichanghuan:${git_pwd}@github.com/xunichanghuan/mimotion.git
+          git push
