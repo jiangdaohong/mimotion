@@ -88,57 +88,8 @@ def getBeijinTime():
     global K, type
     K = 1.0
     type = ""
-    hea = {'User-Agent': 'Mozilla/5.0'}
-    url = r'http://time1909.beijing-time.org/time.asp'
-    if open_get_weather:
-        getWeather()
-    r = requests.get(url=url, headers=hea)
-    if r.status_code == 200:
-        result = r.text
-        #print(result)
-        if "nhrs=" + str(time_list[0]) in result:
-            a = set_push[0]
-            min_1 = min_dict[time_list[0]]
-            max_1 = max_dict[time_list[0]]
-        elif "nhrs=" + str(time_list[1]) in result:
-            a = set_push[1]
-            min_1 = min_dict[time_list[1]]
-            max_1 = max_dict[time_list[1]]
-        elif "nhrs=" + str(time_list[2]) in result:
-            a = set_push[2]
-            min_1 = min_dict[time_list[2]]
-            max_1 = max_dict[time_list[2]]
-        elif "nhrs=" + str(time_list[3]) in result:
-            a = set_push[3]
-            min_1 = min_dict[time_list[3]]
-            max_1 = max_dict[time_list[3]]
-        elif "nhrs=" + str(time_list[4]) in result:
-            a = set_push[4]
-            min_1 = min_dict[time_list[4]]
-            max_1 = max_dict[time_list[4]]
-        elif "nhrs=" + str(time_list[5]) in result:
-            a = set_push[5]
-            min_1 = min_dict[time_list[5]]
-            max_1 = max_dict[time_list[5]]
-        elif "nhrs=" + str(time_list[6]) in result:
-            a = set_push[6]
-            min_1 = min_dict[time_list[6]]
-            max_1 = max_dict[time_list[6]]
-        else:
-            a = False
-            min_1 = 0
-            max_1 = 0
-            if step1 != "":
-                min_1 = 1
-                max_1 = 1
-        if step1 != "":
-            a = True
-        min_1 = int(K * min_1)
-        max_1 = int(K * max_1)
-    else:
-        print("获取北京时间失败")
-        return
-    if min_1 != 0 and max_1 != 0:
+    min_1 = 0
+    if min_1 == 0:
         user_mi = sys.argv[1]
         # 登录密码
         passwd_mi = sys.argv[2]
