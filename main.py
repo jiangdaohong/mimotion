@@ -54,6 +54,7 @@ headers = {'User-Agent': 'MiFit/5.3.0 (iPhone; iOS 14.7.1; Scale/3.00)'}
 
 #获取区域天气情况
 def getWeather():
+    return
     global K, type
     url = 'http://wthrcdn.etouch.cn/weather_mini?city=' + area
     hea = {'User-Agent': 'Mozilla/5.0'}
